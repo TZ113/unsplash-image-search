@@ -60,10 +60,10 @@ body {
 }
 
 .loading {
-  color: #6565d4;
   text-align: center;
-  margin-top: 20px;
-  font-size: 20px;
+  margin: auto;
+  width: 500px;
+  height: 500px;
 }
 
 /* common css ends */
