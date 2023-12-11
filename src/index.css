@@ -128,6 +128,7 @@ body {
   margin-left: 2rem;
   border-radius: 10px;
   transition: transform 0.5s;
+  cursor: pointer;
 }
 
 .images .image:hover {
@@ -161,4 +162,19 @@ body {
   width: 32px;
   height: 32px;
   margin-left: 10px;
+}
+
+.modal-body {
+  text-align: center;
+  max-width: 90vw;
+  width:100%;
+  max-height: 80vh;
+  height: 100%;
+}
+
+.carousel-image {
+  max-width: 85vw;
+  width: 100%;
+  max-height: 75vh;
+  height: 100%;
 }

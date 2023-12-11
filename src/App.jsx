@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
+import ImageModal from "./Modal"
 import "./index.css"
 
 const API_URL = 'https://api.unsplash.com/search/photos'
@@ -8,7 +9,7 @@ const imagesPerPage = 20
 
 
 const App = () => {
-  console.log("rendered")
+  console.log("App rendered")
 
   const searchInput = useRef(null)
   const [images, setImages] = useState([])
@@ -16,6 +17,8 @@ const App = () => {
   const [page, setPage] = useState(1)
   const [errorMsg, setErrorMsg] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const fetchImages = useCallback(
     async () => {
@@ -46,34 +49,41 @@ const App = () => {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    console.log(searchInput.current.value)
     resetSearch()
   }
 
   const handleSelection = (selection) => {
-    console.log(selection)
     searchInput.current.value = selection
     resetSearch()
   }
-  
-    console.log('page', page)
-    console.log('total pages', totalPages)
 
   useEffect(() => {
     fetchImages()
   }, [fetchImages, page])
+
+  const handleImageClick = (id) => {
+    setCurrentImageIndex(() => images.findIndex((image) => image.id === id))
+    setShowModal(true)
+  }
   
   const imageElements = images.map((image) => (
-    <img
-      key={image.id}
-      src={image.urls.small}
-      alt={image.alt_description}
-      className="image"
-    />
+      <img
+        key={image.id}
+        src={image.urls.small}
+        alt={image.alt_description}
+        className="image"
+        onClick={() => handleImageClick(image.id)}
+      />
   ))
 
   return (
     <main className="container">
+      {showModal && < ImageModal
+        idx={currentImageIndex}
+        images={images}
+        show={showModal}
+        setShow={setShowModal}
+      />}
       <h1 className="title">Image Search<img className='search-icon' src="/search-icon-2.png" alt="search icon" /></h1>
       {errorMsg && <p className="error-msg">{errorMsg}</p>}
       <section className="search-section">
@@ -86,6 +96,7 @@ const App = () => {
           />
         </Form>
       </section>
+      
       <section className='filters'>
         <div onClick={() => handleSelection("nature")}>Nature</div>
         <div onClick={() => handleSelection("cats")}>Cats</div>
