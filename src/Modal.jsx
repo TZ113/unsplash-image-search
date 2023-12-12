@@ -5,12 +5,14 @@ import "./index.css"
 
 export default function ImageModal(props) {
   console.log("Modal rendered")
-  console.log(props)
   const [index, setIndex] = useState(props.idx)
-  console.log(index)
+  const [currentImageTitle, setCurrentImageTitle] = useState(() => props.images[props.idx].alt_description)
+
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex)
+    setCurrentImageTitle(props.images[selectedIndex].alt_description)
   }
+  console.log(currentImageTitle)  
   
 
     return (
@@ -18,20 +20,23 @@ export default function ImageModal(props) {
         className="modal"
         show={props.show}
         onHide={() => props.setShow(false)}
-        size="lg"
+        size="xl"
         aria-labelledby="contained-modal-title-vcenter"
-        centered
+        centered={true}
+        scrollable={true}
       >
-        <Modal.Header closeButton onClick={() => props.setShow(false)}>
+        <Modal.Header className="modal-header" closeButton onClick={() => props.setShow(false)}>
+          <div className="modal-image-title">{currentImageTitle}</div>
         </Modal.Header>
           <Modal.Body className="modal-body">
             <Carousel
               activeIndex={index}
               onSelect={handleSelect}
+              className="carousel"
               interval={null}
               controls={true}
               touch={true}
-              indicators={true}
+              // indicators={true}
               fade
             >
               {props.images.map((image, idx) => (
@@ -42,7 +47,7 @@ export default function ImageModal(props) {
                       src={image.urls.regular}
                       alt={image.alt_description}
                     />
-                  <Carousel.Caption>{image.alt_description}</Carousel.Caption>
+                  {/* <Carousel.Caption>{image.alt_description}</Carousel.Caption> */}
                   </Carousel.Item>
 
                   ))}

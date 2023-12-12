@@ -100,8 +100,9 @@ const App = () => {
       <section className='filters'>
         <div onClick={() => handleSelection("nature")}>Nature</div>
         <div onClick={() => handleSelection("cats")}>Cats</div>
-        <div onClick={() => handleSelection("girls")}>Girls</div>
-        <div onClick={() => handleSelection("bags")}>Bags</div>
+        <div onClick={() => handleSelection("Space")}>Space</div>
+        <div onClick={() => handleSelection("Girls")}>Girls</div>
+        <div onClick={() => handleSelection("Cars")}>Cars</div>
       </section>
       
       {loading ? <img className="loading" src="/Loading.gif" alt="loading" /> :
