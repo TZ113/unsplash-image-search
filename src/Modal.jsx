@@ -5,15 +5,14 @@ import "./index.css"
 
 export default function ImageModal(props) {
   console.log("Modal rendered")
+
   const [index, setIndex] = useState(props.idx)
-  const [currentImageTitle, setCurrentImageTitle] = useState(() => props.images[props.idx].alt_description)
+  const [currentImageTitle, setCurrentImageTitle] = useState(props.images[props.idx].alt_description)
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex)
     setCurrentImageTitle(props.images[selectedIndex].alt_description)
   }
-  console.log(currentImageTitle)  
-  
 
     return (
       <Modal
