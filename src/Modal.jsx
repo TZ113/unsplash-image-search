@@ -6,14 +6,17 @@ import "./index.css"
 export default function ImageModal(props) {
   console.log("Modal rendered")
 
+  // State variables
   const [index, setIndex] = useState(props.idx)
   const [currentImageTitle, setCurrentImageTitle] = useState(props.images[props.idx].alt_description)
 
+  // Function to handle image selection in the carousel
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex)
     setCurrentImageTitle(props.images[selectedIndex].alt_description)
   }
 
+    // Render the image modal using react-bootstrap's modal and carousel components
     return (
       <Modal
         className="modal"
@@ -37,7 +40,8 @@ export default function ImageModal(props) {
               touch={true}
               // indicators={true}
               fade
-            >
+          >
+              {/* Map images to be shown in the carousel */}
               {props.images.map((image, idx) => (
 
                   <Carousel.Item key={idx}>
@@ -56,10 +60,10 @@ export default function ImageModal(props) {
     )
 }
  
+// PropTypes to define the expected props for validation
 ImageModal.propTypes = {
   show: PropTypes.bool.isRequired,
   setShow: PropTypes.func.isRequired,
   idx: PropTypes.number.isRequired,
   images: PropTypes.array.isRequired,
-
 }
